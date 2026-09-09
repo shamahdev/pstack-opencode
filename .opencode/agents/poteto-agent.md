@@ -1,7 +1,7 @@
 ---
 description: Routing target for poteto-mode. Reads poteto-mode SKILL.md in full before any work. Use for rigorous engineering tasks.
 mode: subagent
-color: yellow
+color: warning
 ---
 # Poteto subagent
 

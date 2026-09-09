@@ -3,9 +3,11 @@ set -euo pipefail
 
 # Diff local ported skills/agents against upstream raw.githubusercontent.com/cursor/plugins.
 #   bash scripts/sync-upstream.sh                 # against main (default)
-#   bash scripts/sync-upstream.sh --ref v0.14.7    # against any ref/branch/tag
-#   bash scripts/sync-upstream.sh --pin 0.14.7     # shorthand for --ref tags/0.14.7 (see below)
-# Requires curl.
+#   bash scripts/sync-upstream.sh --ref main      # against any ref/branch/tag
+#   bash scripts/sync-upstream.sh --pin <tag>     # shorthand for --ref <tag>; overrides --ref
+# Requires curl. A pin only resolves when upstream actually has that tag;
+# verified working ref today is `main` (bare version tags like `0.14.7`
+# currently 404 upstream).
 #
 # NOTE: upstream ships skills under the monorepo path pstack/skills. Raw tag refs
 # for cursor/plugins look like <tag>/pstack/... only if the tag exists and the layout
@@ -25,15 +27,9 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# If a pin tag is given it overrides the ref (the tag is the thing we want to diff).
-# A bare version like `0.14.7` is shorthand for `tags/0.14.7`; branches,
-# full refs, and anything containing a `/` are used verbatim.
+# A pin is a full tag/ref override. It wins over --ref when both are given.
 if [[ -n "$PIN" ]]; then
-  if [[ "$PIN" == *"/"* || "$PIN" == "main" || "$PIN" == "master" ]]; then
-    REF="$PIN"
-  else
-    REF="tags/$PIN"
-  fi
+  REF="$PIN"
   echo "Pinned to tag/ref: $REF (from --pin $PIN)"
 else
   echo "Using ref: $REF"

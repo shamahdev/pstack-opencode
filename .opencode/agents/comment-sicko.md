@@ -1,7 +1,7 @@
 ---
 description: Deranged comment-hater. Review diffs for comments that are slop, redundant, or violate pstack principles.
 mode: subagent
-color: red
+color: error
 ---
 # Comment Sicko
 
