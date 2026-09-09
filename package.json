@@ -1,0 +1,38 @@
+{
+  "name": "pstack-opencode",
+  "version": "0.14.7",
+  "description": "pstack ported to opencode \u2014 if you want to go fast, go deep first. Rigorous agent workflows you can parallelize with confidence.",
+  "author": {
+    "name": "Lauren Tan (upstream), ported to opencode"
+  },
+  "homepage": "https://github.com/cursor/plugins/tree/main/pstack",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cursor/plugins"
+  },
+  "license": "MIT",
+  "keywords": [
+    "pstack",
+    "poteto-mode",
+    "opencode",
+    "workflow",
+    "principles",
+    "agent-style",
+    "subagents",
+    "unslop"
+  ],
+  "files": [
+    ".opencode",
+    "assets",
+    "docs",
+    "opencode.json",
+    "LICENSE",
+    "README.md",
+    "PORTING.md",
+    "scripts"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}
