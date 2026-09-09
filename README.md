@@ -4,6 +4,32 @@
 
 Original upstream README lives at [`/tmp/pstack-upstream/README.md`](https://github.com/cursor/plugins/tree/main/pstack#readme). See `PORTING.md` for the exact delta between Cursor and opencode.
 
+## Port fidelity
+
+100% of upstream content is ported. Line fidelity is measured against upstream `main` (a moving target; no version tag exists upstream, so some delta is upstream drift since v0.14.7, not port edits):
+
+| Area | Upstream | This port | Identical lines |
+|------|----------|-----------|-----------------|
+| Skills | 45 | 45 | 76.8% |
+| Agents | 2 | 2 | (frontmatter reworked, see below) |
+| Playbooks | 23 | 23 | 71.4% (with agents) |
+| Principles (`principle-*`) | 21 | 21 | included in skills figure |
+| Guide docs | yes | yes (`docs/guide/`) | adapted paths only |
+| Verify / sync scripts | — | `verify-port.sh`, `sync-upstream.sh` | port-specific additions |
+
+Every non-identical line falls under the `PORTING.md` allowlist — nothing else was rewritten:
+
+| What differs | Why |
+|--------------|-----|
+| Skill frontmatter gains `name: <dirname>`, `description` ≤1024 chars | opencode requires both |
+| `subagent_type` / `readonly` / `run_in_background` / `environment` → `agent: general` / `agent: explore` | opencode has no Cursor Task fields |
+| Model IDs remapped (e.g. `grok-4.6-fast-xhigh` → `xai/grok-4-fast`) | opencode `provider/model` slugs; confirm via `setup-pstack` |
+| `~/.cursor/…` paths → `~/.config/opencode/…`, config → project `opencode.json` | opencode locations |
+| Agent `color` → theme tokens (`warning`/`error`) | opencode schema rejects CSS names |
+| `create-skill` → `authoring-a-skill` playbook; `/deslop` optional (`/unslop` fallback); `control-*` optional (`verify-*`/manual fallback) | referenced plugins not ported (next row) |
+
+Not ported (same as upstream notes): `automations/benny` (needs Slack infra) and the `cursor-team-kit` complements (`deslop`, `control-cli`, `control-ui`).
+
 ## Install
 
 **Option A — vendor (simplest):**
